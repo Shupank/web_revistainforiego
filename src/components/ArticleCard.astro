@@ -1,0 +1,49 @@
+---
+interface Props {
+	title: string;
+	category: string;
+	date: string;
+	excerpt: string;
+	image: string;
+	slug: string;
+	isFeatured?: boolean;
+}
+
+const { title, category, date, excerpt, image, slug, isFeatured = false } = Astro.props;
+---
+
+<article class={`bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col group ${isFeatured ? 'md:grid md:grid-cols-12 md:gap-6' : ''}`}>
+	
+	<!-- CONTENEDOR DE LA IMAGEN -->
+	<div class={`relative overflow-hidden bg-slate-100 ${isFeatured ? 'md:col-span-7 h-64 md:h-full' : 'h-48'}`}>
+		<img src={image} alt={title} class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+	</div>
+	
+	<!-- CONTENIDO DE LA TARJETA -->
+	<div class={`p-5 flex flex-col justify-between ${isFeatured ? 'md:col-span-5 md:p-6' : ''}`}>
+		<div>
+			<!-- CATEGORÍA FUERA DE LA IMAGEN (Evita superposiciones) -->
+			<div class="mb-2">
+				<span class="inline-block bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-sm">
+					{category}
+				</span>
+			</div>
+
+			<div class="text-xs text-slate-400 font-medium mb-1">{date}</div>
+
+			<h3 class={`font-bold text-slate-900 tracking-tight leading-snug hover:text-emerald-600 transition mb-3 ${isFeatured ? 'text-xl md:text-2xl' : 'text-base'}`}>
+				<a href={`/articulos/${slug}`}>{title}</a>
+			</h3>
+
+			<p class="text-slate-600 text-xs leading-relaxed line-clamp-3 mb-4">
+				{excerpt}
+			</p>
+		</div>
+		
+		<div class="pt-3 border-t border-slate-100 flex justify-between items-center">
+			<a href={`/articulos/${slug}`} class="text-emerald-600 font-bold text-xs flex items-center gap-1 hover:underline">
+				Leer artículo completo ➔
+			</a>
+		</div>
+	</div>
+</article>

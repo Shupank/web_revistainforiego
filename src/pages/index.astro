@@ -1,0 +1,101 @@
+---
+import Header from '../components/Header.astro';
+import Portada from '../components/Portada.astro';
+import Layout from '../layouts/Layout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import AdSidebar from '../components/AdSidebar.astro';
+
+const featuredArticle = {
+	title: "Sistemas de Riego Subterráneo por Goteo: Eficiencia Hídrica del 95% en Cultivos Extensivos",
+	category: "Riego Agrícola",
+	date: "30 Julio, 2026",
+	excerpt: "Analizamos los últimos avances en riego subterráneo (SDI) aplicados a maíz y soja. Evaluamos costos de instalación, vida útil de emisores y ahorro de agua comprobado en campo.",
+	image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=800&q=80",
+	slug: "riego-subterraneo-por-goteo"
+};
+
+const articles = [
+	{
+		title: "Sensores IoT de Humedad de Suelo: ¿Cómo Elegir la Mejor Sonda para tu Finca?",
+		category: "Tecnología & AgTech",
+		date: "28 Julio, 2026",
+		excerpt: "Comparativa técnica entre sondas capacitivas y FDR. Métricas de transmisión LoRaWAN y telemetría en tiempo real.",
+		image: "https://images.unsplash.com/photo-1592417817098-8f3d6eb231fc?auto=format&fit=crop&w=600&q=80",
+		slug: "sensores-iot-humedad-suelo"
+	},
+	{
+		title: "Uso de Aguas Regeneradas en Frutales: Desafíos de Filtración y Desinfección",
+		category: "Sostenibilidad",
+		date: "25 Julio, 2026",
+		excerpt: "Estrategias prácticas para prevenir obturaciones biológicas mediante sistemas de filtrado de discos y cloración.",
+		image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80",
+		slug: "aguas-regeneradas-frutales"
+	},
+	{
+		title: "Congreso Internacional de Riego de Precisión 2026: Fechas y Programa Técnico",
+		category: "Eventos & Cursos",
+		date: "22 Julio, 2026",
+		excerpt: "Los principales expertos globales se reunirán para debatir sobre la inteligencia artificial aplicada a la programación del riego.",
+		image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80",
+		slug: "congreso-riego-precision-2026"
+	},
+	{
+		title: "Mantenimiento Preventivo de Bombas y Cabezales de Riego antes de la Temporada",
+		category: "Riego Agrícola",
+		date: "18 Julio, 2026",
+		excerpt: "Guía paso a paso para la revisión de presiones, limpieza de filtros de arena y calibración de dosificadores de fertilizante.",
+		image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=600&q=80",
+		slug: "mantenimiento-preventivo-bombas-riego"
+	}
+];
+---
+
+<Layout title="Factor Agua - Periodismo Especializado en Riego y Tecnología">
+	
+	<!-- ENCABEZADO / MENÚ PRINCIPAL -->
+	<Header />
+
+	<!-- GRILLA PRINCIPAL: CONTENIDO + SIDEBAR -->
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+		<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+			
+			<div class="lg:col-span-8 space-y-8">
+				<section>
+					<div class="flex items-center justify-between mb-4 border-b-2 border-slate-900 pb-2">
+						<h2 class="text-xl font-black uppercase text-slate-900 tracking-tight flex items-center gap-2">
+							<span class="text-emerald-600">⭐</span> Tema de Portada
+						</h2>
+					</div>
+					<ArticleCard {...featuredArticle} isFeatured={true} />
+				</section>
+
+				<div class="bg-slate-200 border-2 border-dashed border-slate-300 rounded-xl p-6 flex flex-col items-center justify-center text-center relative group hover:border-emerald-600 transition cursor-pointer">
+					<span class="absolute top-1 right-2 text-[9px] uppercase tracking-wider text-slate-400 font-bold">Publicidad (In-Feed)</span>
+					<p class="text-slate-800 font-bold text-base group-hover:text-emerald-600">¿Eres fabricante de tuberías, bombas o sensores de riego?</p>
+					<p class="text-slate-500 text-xs mt-1">Anuncia tu marca en esta sección clave con más de 20,000 lecturas mensuales.</p>
+				</div>
+
+				<section>
+					<div class="flex items-center justify-between mb-4 border-b-2 border-slate-900 pb-2">
+						<h2 class="text-xl font-black uppercase text-slate-900 tracking-tight">
+							Últimas Publicaciones
+						</h2>
+						<a href="#" class="text-xs font-bold text-emerald-600 hover:underline">Ver todas ➔</a>
+					</div>
+					
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+						{articles.map(article => (
+							<ArticleCard {...article} />
+						))}
+					</div>
+				</section>
+			</div>
+
+			<div class="lg:col-span-4">
+				<AdSidebar />
+			</div>
+
+		</div>
+	</div>
+
+</Layout>

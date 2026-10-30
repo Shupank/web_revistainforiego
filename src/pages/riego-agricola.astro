@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+// Aquí filtramos las notas que corresponden a Riego Agrícola
+const riegoArticles = [
+	{
+		title: "Sistemas de Riego Subterráneo por Goteo: Eficiencia Hídrica del 95% en Cultivos Extensivos",
+		category: "Riego Agrícola",
+		date: "30 Julio, 2026",
+		excerpt: "Analizamos los últimos avances en riego subterráneo (SDI) aplicados a maíz y soja. Evaluamos costos de instalación, vida útil de emisores y ahorro de agua comprobado en campo.",
+		image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=800&q=80",
+		slug: "riego-subterraneo-por-goteo"
+	},
+	{
+		title: "Mantenimiento Preventivo de Bombas y Cabezales de Riego antes de la Temporada",
+		category: "Riego Agrícola",
+		date: "18 Julio, 2026",
+		excerpt: "Guía paso a paso para la revisión de presiones, limpieza de filtros de arena y calibración de dosificadores de fertilizante.",
+		image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=600&q=80",
+		slug: "mantenimiento-preventivo-bombas-riego"
+	}
+];
+---
+
+<Layout title="Riego Agrícola | Factor Agua">
+	<Header />
+	
+	<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<div class="mb-8 border-b-2 border-slate-900 pb-4">
+			<span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-md">Sección Especializada</span>
+			<h1 class="text-3xl font-black uppercase text-slate-900 mt-2 tracking-tight">Riego Agrícola</h1>
+			<p class="text-sm text-slate-600 mt-1">Artículos técnicos, optimización de sistemas presurizados y eficiencia hídrica en cultivos.</p>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{riegoArticles.map(article => (
+				<ArticleCard {...article} />
+			))}
+		</div>
+
+		<div class="mt-12">
+			<a href="/" class="text-xs font-bold uppercase text-emerald-600 hover:underline">← Volver a la Portada</a>
+		</div>
+	</main>
+</Layout>
