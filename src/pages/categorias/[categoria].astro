@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import AdSidebar from '../../components/AdSidebar.astro';
+
+// 1. Generamos las rutas para cada categoría existente
+export async function getStaticPaths() {
+    const articulos = await getCollection('articulos');
+    
+    // Extraemos todas las categorías únicas de los artículos
+    const categorias = [...new Set(articulos.map(art => art.data.category))];
+
+    return categorias.map(cat => {
+        // Creamos un slug amigable para la URL (ej: "Tecnología & AgTech" -> "tecnologia-agtech")
+        const slugCat = cat.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        
+        return {
+            params: { categoria: slugCat },
+            props: { nombreCategoria: cat, articulos },
+        };
+    });
+}
+
+const { nombreCategoria, articulos } = Astro.props;
+
+// Filtramos los artículos que pertenecen a esta categoría
+const articulosFiltrados = articulos.filter(art => art.data.category === nombreCategoria);
+---
+
+<Layout title={`${nombreCategoria} | Factor Agua+`}>
+    <Header />
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8 border-b-2 border-slate-900 pb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Sección Especializada</span>
+            <h1 class="text-3xl font-black uppercase text-slate-900 tracking-tight mt-1">
+                {nombreCategoria}
+            </h1>
+            <p class="text-slate-600 text-sm mt-1">Artículos técnicos, análisis especializados e innovación en el sector.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- LISTADO DE ARTÍCULOS DE LA CATEGORÍA -->
+            <div class="lg:col-span-8 space-y-6">
+                {articulosFiltrados.length > 0 ? (
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {articulosFiltrados.map(article => (
+                            <ArticleCard 
+                                title={article.data.title}
+                                category={article.data.category}
+                                date={article.data.date}
+                                excerpt={article.data.excerpt}
+                                image={article.data.image}
+                                slug={article.slug}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-8 text-center text-slate-500">
+                        <p class="font-medium">No hay artículos publicados en esta categoría todavía.</p>
+                    </div>
+                )}
+            </div>
+
+            <!-- SIDEBAR -->
+            <div class="lg:col-span-4">
+                <AdSidebar />
+            </div>
+        </div>
+    </main>
+
+    <Footer />
+</Layout>

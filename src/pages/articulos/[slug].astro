@@ -1,91 +1,84 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import AdSidebar from '../../components/AdSidebar.astro';
 
-export function getStaticPaths() {
-  const articles = [
-    {
-      title: "Sistemas de Riego Subterráneo por Goteo: Eficiencia Hídrica del 95% en Cultivos Extensivos",
-      category: "Riego Agrícola",
-      date: "30 Julio, 2026",
-      excerpt: "Analizamos los últimos avances en riego subterráneo (SDI) aplicados a maíz y soja. Evaluamos costos de instalación, vida útil de emisores y ahorro de agua comprobado en campo.",
-      image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=800&q=80",
-      slug: "riego-subterraneo-por-goteo"
-    },
-    {
-      title: "Sensores IoT de Humedad de Suelo: ¿Cómo Elegir la Mejor Sonda para tu Finca?",
-      category: "Tecnología & AgTech",
-      date: "28 Julio, 2026",
-      excerpt: "Comparativa técnica entre sondas capacitivas y FDR. Métricas de transmisión LoRaWAN y telemetría en tiempo real.",
-      image: "https://images.unsplash.com/photo-1592417817098-8f3d6eb231fc?auto=format&fit=crop&w=600&q=80",
-      slug: "sensores-iot-humedad-suelo"
-    },
-    {
-      title: "Uso de Aguas Regeneradas en Frutales: Desafíos de Filtración y Desinfección",
-      category: "Sostenibilidad",
-      date: "25 Julio, 2026",
-      excerpt: "Estrategias prácticas para prevenir obturaciones biológicas mediante sistemas de filtrado de discos y cloración.",
-      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80",
-      slug: "aguas-regeneradas-frutales"
-    },
-    {
-      title: "Congreso Internacional de Riego de Precisión 2026: Fechas y Programa Técnico",
-      category: "Eventos & Cursos",
-      date: "22 Julio, 2026",
-      excerpt: "Los principales expertos globales se reunirán para debatir sobre la inteligencia artificial aplicada a la programación del riego.",
-      image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80",
-      slug: "congreso-riego-precision-2026"
-    },
-    {
-      title: "Mantenimiento Preventivo de Bombas y Cabezales de Riego antes de la Temporada",
-      category: "Riego Agrícola",
-      date: "18 Julio, 2026",
-      excerpt: "Guía paso a paso para la revisión de presiones, limpieza de filtros de arena y calibración de dosificadores de fertilizante.",
-      image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=600&q=80",
-      slug: "mantenimiento-preventivo-bombas-riego"
-    }
-  ];
-
-  return articles.map(article => ({
-    params: { slug: article.slug },
-    props: { article },
-  }));
+// 1. Generamos las rutas dinámicas para cada artículo de la colección
+export async function getStaticPaths() {
+    const articulos = await getCollection('articulos');
+    return articulos.map(articulo => ({
+        params: { slug: articulo.slug },
+        props: { articulo },
+    }));
 }
 
-const { article } = Astro.props;
+// 2. Recuperamos el artículo correspondiente a la URL
+const { articulo } = Astro.props;
+const { Content } = await articulo.render();
 ---
 
-<Layout title={`${article.title} | Factor Agua`}>
-  <Header />
+<Layout title={`${articulo.data.title} | Factor Agua+`}>
+    <Header />
 
-  <main class="max-w-4xl mx-auto px-4 py-8">
-    <div class="mb-6">
-      <span class="inline-block bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-sm mb-3">
-        {article.category}
-      </span>
-      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 mb-2 leading-tight">
-        {article.title}
-      </h1>
-      <p class="text-xs text-slate-400 font-medium">{article.date}</p>
-    </div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- CONTENIDO PRINCIPAL DEL ARTÍCULO -->
+            <article class="lg:col-span-8 bg-white p-6 sm:p-10 rounded-2xl shadow-sm border border-slate-200">
+                
+                <!-- Metadatos -->
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                        {articulo.data.category}
+                    </span>
+                    <span class="text-xs text-slate-400 font-medium">
+                        {articulo.data.date}
+                    </span>
+                    {articulo.data.author && (
+                        <span class="text-xs text-slate-500 font-medium">
+                            • Por {articulo.data.author}
+                        </span>
+                    )}
+                </div>
 
-    <div class="rounded-xl overflow-hidden shadow-md mb-8 max-h-[450px]">
-      <img src={article.image} alt={article.title} class="w-full h-full object-cover" />
-    </div>
+                <!-- Título -->
+                <h1 class="text-2xl sm:text-4xl font-black text-slate-900 mb-6 leading-tight">
+                    {articulo.data.title}
+                </h1>
 
-    <article class="prose prose-slate lg:prose-lg max-w-none text-slate-700 space-y-4">
-      <p class="text-base font-semibold text-slate-800 leading-relaxed">
-        {article.excerpt}
-      </p>
-      <p class="text-sm leading-relaxed text-slate-600">
-        Aquí se despliega el desarrollo técnico completo del artículo especializado para la revista **Factor Agua**. Este formato dinámico permite que cualquier nueva publicación que agregues a tu listado principal genere su propia página de lectura al instante, optimizando tus tiempos al máximo.
-      </p>
-    </article>
+                <!-- Imagen Destacada -->
+                {articulo.data.image && (
+                    <div class="mb-8 overflow-hidden rounded-xl bg-slate-100 max-h-[400px]">
+                        <img 
+                            src={articulo.data.image} 
+                            alt={articulo.data.title} 
+                            class="w-full h-full object-cover"
+                        />
+                    </div>
+                )}
 
-    <div class="mt-12 pt-6 border-t border-slate-200">
-      <a href="/" class="inline-flex items-center gap-2 text-xs font-bold uppercase text-emerald-600 hover:text-emerald-800 transition">
-        ← Volver a la Portada
-      </a>
-    </div>
-  </main>
+                <!-- Cuerpo del Artículo renderizado desde Markdown -->
+                <div class="prose prose-slate max-w-none prose-headings:font-bold prose-a:text-emerald-600">
+                    <Content />
+                </div>
+
+                <!-- Botón de Retorno -->
+                <div class="mt-10 pt-6 border-t border-slate-100">
+                    <a href="/" class="inline-flex items-center gap-2 text-sm font-bold text-emerald-600 hover:text-emerald-800 transition">
+                        ← Volver a la Portada
+                    </a>
+                </div>
+            </article>
+
+            <!-- SIDEBAR LATERAL -->
+            <div class="lg:col-span-4">
+                <AdSidebar />
+            </div>
+
+        </div>
+    </main>
+
+    <Footer />
 </Layout>

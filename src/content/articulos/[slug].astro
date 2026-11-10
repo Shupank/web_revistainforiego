@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+    const articulos = await getCollection('articulos');
+    return articulos.map(articulo => ({
+        params: { slug: articulo.slug },
+        props: { articulo },
+    }));
+}
+
+const { articulo } = Astro.props;
+const { Content } = await articulo.render();
+---
+
+<Layout title={`${articulo.data.title} | Factor Agua`}>
+    <Header />
+
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Encabezado del artículo -->
+        <div class="mb-6">
+            <span class="inline-block bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-sm mb-3">
+                {articulo.data.category}
+            </span>
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-900 mb-2 leading-tight">
+                {articulo.data.title}
+            </h1>
+            <p class="text-xs text-slate-400 font-medium">
+                {articulo.data.date} {articulo.data.author && `• Por ${articulo.data.author}`}
+            </p>
+        </div>
+
+        <!-- Imagen principal -->
+        {articulo.data.image && (
+            <div class="rounded-xl overflow-hidden shadow-md mb-8 max-h-[450px]">
+                <img src={articulo.data.image} alt={articulo.data.title} class="w-full h-full object-cover" />
+            </div>
+        )}
+
+        <!-- Contenido dinámico del Markdown con formato de revista -->
+        <article class="prose prose-slate lg:prose-lg max-w-none text-slate-700">
+            <Content />
+        </article>
+
+        <!-- Botón de retorno -->
+        <div class="mt-12 pt-6 border-t border-slate-200">
+            <a href="/" class="inline-flex items-center gap-2 text-xs font-bold uppercase text-emerald-600 hover:text-emerald-800 transition">
+                ← Volver a la Portada
+            </a>
+        </div>
+    </main>
+
+    <Footer />
+</Layout>

@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import AdSidebar from '../../components/AdSidebar.astro';
+
+// Definimos las rutas dinámicas permitidas en la revista
+export async function getStaticPaths() {
+    const categories = [
+        { slug: 'riego-agricola', name: 'Riego Agrícola', description: 'Artículos técnicos sobre sistemas de riego, eficiencia y optimización hídrica.' },
+        { slug: 'tecnologia-agtech', name: 'Tecnología & AgTech', description: 'Innovación en sensores, telemetría, automatización e inteligencia artificial aplicada.' },
+        { slug: 'sostenibilidad', name: 'Sostenibilidad', description: 'Gestión de recursos, reutilización de aguas y prácticas agrícolas sustentables.' },
+        { slug: 'regionales', name: 'Regionales', description: 'Crónicas, informes y actualidad hídrica de las distintas zonas productivas.' },
+        { slug: 'clima-y-suelos', name: 'Clima y Suelos', description: 'Estudios de evapotranspiración, pronósticos y manejo integral de suelos.' },
+        { slug: 'entrevistas', name: 'Entrevistas', description: 'Conversaciones a fondo con referentes, investigadores y líderes del sector.' }
+    ];
+
+    return categories.map(cat => {
+        return {
+            params: { slug: cat.slug },
+            props: { name: cat.name, description: cat.description }
+        };
+    });
+}
+
+const { slug } = Astro.params;
+const { name, description } = Astro.props;
+
+// Aquí puedes filtrar o simular artículos de ejemplo para esta categoría
+const categoryArticles = [
+    {
+        title: `Artículo destacado sobre ${name}`,
+        category: name,
+        date: "30 Julio, 2026",
+        excerpt: `Exploramos las últimas novedades, tendencias y análisis técnicos enfocados en ${name.toLowerCase()} para profesionales del agro.`,
+        image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=600&q=80",
+        slug: "ejemplo-articulo-categoria"
+    }
+];
+---
+
+<Layout title={`${name} - Factor Agua`}>
+    <Header />
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- CABECERA DE LA CATEGORÍA -->
+        <div class="mb-8 border-b-2 border-slate-900 pb-4">
+            <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Sección Especializada</span>
+            <h1 class="text-3xl font-black uppercase text-slate-900 mt-1 tracking-tight">{name}</h1>
+            <p class="text-slate-600 text-sm mt-2 max-w-2xl">{description}</p>
+        </div>
+
+        <!-- CONTENIDO + SIDEBAR -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-8 space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {categoryArticles.map(article => (
+                        <ArticleCard {...article} />
+                    ))}
+                </div>
+            </div>
+
+            <div class="lg:col-span-4">
+                <AdSidebar />
+            </div>
+        </div>
+    </div>
+</Layout>
