@@ -1,13 +1,13 @@
 ---
-// Generamos la fecha actual de forma dinámica en español
+// Generamos la fecha actual forzando la zona horaria de Argentina (America/Argentina/Buenos_Aires)
 const fechaActual = new Date().toLocaleDateString('es-AR', {
+  timeZone: 'America/Argentina/Buenos_Aires',
   weekday: 'long',
   year: 'numeric',
   month: 'long',
   day: 'numeric'
 });
 
-// Capitalizamos la primera letra (ej. "martes" -> "Martes")
 const fechaFormateada = fechaActual.charAt(0).toUpperCase() + fechaActual.slice(1);
 ---
 
