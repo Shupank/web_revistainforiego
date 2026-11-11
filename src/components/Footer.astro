@@ -1,48 +1,50 @@
 ---
 // src/components/Footer.astro
 ---
-<footer class="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <!-- MARCA -->
-            <div class="space-y-3 md:col-span-1">
-                <h3 class="text-white font-black text-lg tracking-tight">FACTOR <span class="text-emerald-500">AGUA</span></h3>
-                <p class="text-slate-400 text-xs leading-relaxed">
-                    La publicación líder en información técnica, innovación en irrigación, uso eficiente del agua y tecnología agrícola B2B.
-                </p>
-            </div>
-
-            <!-- SECCIONES -->
-            <div>
-                <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Secciones</h4>
-                <ul class="space-y-2 text-xs">
-                    <li><a href="#" class="hover:text-emerald-400 transition">Riego por Goteo y Aspersión</a></li>
-                    <li><a href="#" class="hover:text-emerald-400 transition">Sensores e IoT Agrícola</a></li>
-                    <li><a href="#" class="hover:text-emerald-400 transition">Gestión de Acuíferos</a></li>
-                </ul>
-            </div>
-
-            <!-- ANUNCIANTES -->
-            <div>
-                <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Anunciantes & Marcas</h4>
-                <ul class="space-y-2 text-xs">
-                    <li><a href="mailto:factoragua2026@gmail.com?subject=Media%20Kit" class="hover:text-emerald-400 transition">Media Kit / Tarifario Publicitario</a></li>
-                    <li><a href="mailto:factoragua2026@gmail.com?subject=Guía%20de%20Proveedores" class="hover:text-emerald-400 transition">Guía de Proveedores de Riego</a></li>
-                </ul>
-            </div>
-
-            <!-- CONTACTO -->
-            <div>
-                <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Contacto</h4>
-                <p class="text-slate-400 text-xs mb-2">¿Tienes una noticia o proyecto de riego para compartir?</p>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=factoragua2026@gmail.com&su=Consulta%20Editorial%20-%20Factor%20Agua" target="_blank" rel="noopener noreferrer" class="text-emerald-400 text-xs font-bold hover:underline">
-                    factoragua2026@gmail.com
-                </a>
-            </div>
-        </div>
-        
-        <div class="mt-8 pt-8 border-t border-slate-800 text-center text-slate-500 text-[11px]">
-            &copy; 2026 Factor Agua. Todos los derechos reservados.
-        </div>
+<footer class="bg-[#0b192c] text-slate-300 py-12 px-6 sm:px-12 border-t border-slate-800">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+    
+    <!-- Columna 1: Identidad -->
+    <div>
+      <h3 class="text-white font-bold text-lg mb-3 tracking-wide">FACTOR AGUA</h3>
+      <p class="text-sm text-slate-400 leading-relaxed">
+        La publicación líder en información técnica, innovación en irrigación, uso eficiente del agua y tecnología agrícola B2B.
+      </p>
     </div>
+
+    <!-- Columna 2: Secciones -->
+    <div>
+      <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">Secciones</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="/categorias/riego-agricola" class="hover:text-white transition-colors">Riego por Goteo y Aspersión</a></li>
+        <li><a href="/categorias/tecnologia-agtech" class="hover:text-white transition-colors">Sensores e IoT Agrícola</a></li>
+        <li><a href="/categorias/sostenibilidad" class="hover:text-white transition-colors">Gestión de Acuíferos</a></li>
+      </ul>
+    </div>
+
+    <!-- Columna 3: Anunciantes & Marcas -->
+    <div>
+      <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">Anunciantes & Marcas</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="mailto:factoragua2026@gmail.com?subject=Consulta%20sobre%20Media%20Kit" class="hover:text-white transition-colors">Media Kit / Tarifario Publicitario</a></li>
+        <li><a href="mailto:factoragua2026@gmail.com?subject=Inclusion%20Guia%20de%20Proveedores" class="hover:text-white transition-colors">Guía de Proveedores de Riego</a></li>
+      </ul>
+    </div>
+
+    <!-- Columna 4: Contacto -->
+    <div>
+      <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">Contacto</h4>
+      <p class="text-sm text-slate-400 mb-2">
+        ¿Tienes una noticia o proyecto de riego para compartir?
+      </p>
+      <a href="mailto:factoragua2026@gmail.com" class="text-emerald-400 font-medium hover:underline text-sm">
+        factoragua2026@gmail.com
+      </a>
+    </div>
+
+  </div>
+
+  <div class="max-w-7xl mx-auto pt-6 border-t border-slate-800 text-center text-xs text-slate-500">
+    © 2026 Factor Agua. Todos los derechos reservados.
+  </div>
 </footer>
