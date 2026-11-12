@@ -1,5 +1,6 @@
 ---
 import Footer from '../components/Footer.astro';
+import ContactModal from '../components/ContactModal.astro';
 import Analytics from '@vercel/analytics/astro';
 import '../styles/global.css'; // <-- ¡Esta línea es la clave para que cargue Tailwind!
 
@@ -34,6 +35,9 @@ const { title, description = "Revista Digital Especializada en Riego Agrícola, 
 
 		<!-- FOOTER MODULAR -->
 		<Footer />
+
+		<!-- MODAL DE CONTACTO UNIVERSAL -->
+		<ContactModal />
 
 		<!-- ANALÍTICAS DE VERCEL -->
 		<Analytics />
